@@ -53,19 +53,19 @@ cd CarBookingCLI
 
 ### 2. Compile the Application
 ```bash
-javac -cp src src/Main.java
+javac -cp src src/com.leo.Main.java
 ```
 
 ### 3. Run the Application
 ```bash
-java -cp src Main
+java -cp src com.leo.Main
 ```
 
 ---
 
 ## 📖 Usage Guide
 
-### Main Menu
+### com.leo.Main Menu
 ```
 === Car Booking System ===
 1 - Book Car
@@ -100,7 +100,7 @@ Enter choice:
 ```
 CarBookingCLI/
 ├── src/
-│   ├── Main.java                    # CLI interface and menu system
+│   ├── com.leo.Main.java                    # CLI interface and menu system
 │   └── com/
 │       └── leo/
 │           ├── car/

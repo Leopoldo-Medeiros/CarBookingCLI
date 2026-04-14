@@ -37,8 +37,18 @@ public class Car {
         return isElectric;
     }
 
+   // @Override
+    //public String toString() {
+       // return regNumber + " - " + brand + " - $" + rentalPricePerDay + "/day";
+
     @Override
     public String toString() {
-        return regNumber + " - " + brand + " - $" + rentalPricePerDay + "/day";
+        return "Car{" +
+                "id=" + id +
+                ", regNumber='" + regNumber + '\'' +
+                ", brand=" + brand +
+                ", rentalPricePerDay=" + rentalPricePerDay +
+                ", isElectric=" + isElectric +
+                '}';
     }
 }

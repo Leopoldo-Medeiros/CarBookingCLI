@@ -20,6 +20,6 @@ public class UserDAO {
                 return user;
             }
         }
-        throw new RuntimeException("User not found with ID: " + id);
+        return null;
     }
 }

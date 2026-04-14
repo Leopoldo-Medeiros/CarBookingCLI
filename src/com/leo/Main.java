@@ -1,3 +1,5 @@
+package com.leo;
+
 import com.leo.car.CarService;
 import com.leo.user.UserService;
 import com.leo.booking.CarBookingService;
@@ -5,6 +7,7 @@ import com.leo.car.Car;
 import com.leo.user.User;
 import com.leo.booking.CarBooking;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.UUID;
 import java.time.LocalDate;
@@ -16,7 +19,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     /**
-     * Main entry point for the Car Booking CLI application
+     * com.leo.Main entry point for the Car Booking CLI application
      * Displays menu and handles user interaction loop
      */
     public static void main(String[] args) {
@@ -38,7 +41,7 @@ public class Main {
     }
 
     /**
-     * Main menu
+     * com.leo.Main menu
      */
     private static void displayMenu() {
         System.out.println("\n=== Car Booking System ===");
@@ -83,46 +86,26 @@ public class Main {
     private static void bookCar() {
         System.out.println("\n--- Book a Car ---");
         Car[] cars = carService.getCars();
-        int count = 0;
-        for(Car car : cars) if(car != null)
-            System.out.println(++count + ". " + car.getRegNumber() + " - " + car.getBrand() + " - $" + car.getRentalPricePerDay() + "/day - ID: " + car.getId());
 
-        if(count == 0) {
+
+        //Stem.out.println(++count + ". " + car.getRegNumber() + " - " + car.getBrand() + " - $" + car.getRentalPricePerDay() + "/day - ID: " + car.getId());
+        if(cars.length == 0) {
             System.out.println("No cars available.");
             return;
         }
 
+        System.out.println(Arrays.toString(carService.getCars()));
+
+        System.out.println(Arrays.toString(userService.getUsers()));
+
         System.out.print("Enter User ID: ");
         UUID userId = getUUIDInput();
-        if(userId == null) {
-            System.out.println("Invalid User ID.");
-            return;
-        }
 
-        try {
-            userService.findUserById(userId);
-        }
-        catch(Exception e) {
-            System.out.println("User not found.");
-            return;
-        }
 
-        System.out.print("Enter car number: ");
-        int carChoice = getIntInput();
-        if(carChoice < 1 || carChoice > count) {
-            System.out.println("Invalid selection.");
-            return;
-        }
 
-        Car selectedCar = null;
-        count = 0;
-        for(Car car : cars) {
-            if(car != null) {
-                if(++count == carChoice) { selectedCar = car;
-                    break;
-                }
-            }
-        }
+        System.out.print("Enter id number: ");
+        UUID carChoice = getUUIDInput();
+
 
         System.out.print("Enter start date (YYYY-MM-DD): ");
         LocalDate startDate = LocalDate.parse(scanner.nextLine());
@@ -130,7 +113,7 @@ public class Main {
         LocalDate endDate = LocalDate.parse(scanner.nextLine());
 
         try {
-            CarBooking booking = bookingService.bookCar(userId, selectedCar.getId(), startDate, endDate);
+            CarBooking booking = bookingService.bookCar(userId, carChoice, startDate, endDate);
             System.out.println("✅ Booking successful! ID: " + booking.getBookingId() + " Price: $" + booking.getPrice());
         } catch(Exception e) {
             System.out.println("❌ Booking failed: " + e.getMessage());

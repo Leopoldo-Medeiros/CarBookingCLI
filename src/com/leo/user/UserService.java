@@ -3,7 +3,7 @@ package com.leo.user;
 import java.util.UUID;
 
 public class UserService {
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
     public UserService() {
         this.userDAO = new UserDAO();
@@ -14,6 +14,10 @@ public class UserService {
     }
 
     public User findUserById(UUID id) {
-        return userDAO.findUserById(id);
+        User user = userDAO.findUserById(id);
+        if (user == null) {
+            throw new IllegalStateException("User not found. id: " + id);
+        }
+        return user;
     }
 }

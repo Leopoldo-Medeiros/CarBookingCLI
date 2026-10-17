@@ -2,7 +2,6 @@ package com.leo.booking;
 
 import com.leo.car.Car;
 import com.leo.user.User;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -46,6 +45,10 @@ public class CarBooking {
         return status;
     }
 
+    public void setStatus(BookingStatus status) {
+        this.status = status;
+    }
+
     public LocalDateTime getBookedAt() {
         return bookedAt;
     }
@@ -68,6 +71,5 @@ public class CarBooking {
         this.price = price;
         this.status = status;
         this.bookedAt = bookedAt;
-
     }
 }

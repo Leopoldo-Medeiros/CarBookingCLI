@@ -9,7 +9,7 @@ public class UserDao {
 
     static {
         users = new User[userCount];
-        users[0] = new User(UUID.fromString("3B09364-2616-4C3C-B4F3-65D087EFE558"), "Leo");
+        users[0] = new User(UUID.fromString("03B09364-2616-4C3C-B4F3-65D087EFE558"), "Leo");
         users[1] = new User(UUID.fromString("0DFBC93E-0402-4EBB-9A43-F314C033835E"), "Luciana");
     }
 

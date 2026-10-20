@@ -27,8 +27,8 @@ public class CarBookingService {
             return null;
         }
 
-        // Validating the data
-        if (startDate.isBefore(LocalDate.now()) || endDate.isBefore(startDate)) {
+        // Validating the data (endDate must be after startDate: at least 1 day)
+        if (startDate.isBefore(LocalDate.now()) || !endDate.isAfter(startDate)) {
             return null;
         }
 
@@ -39,8 +39,11 @@ public class CarBookingService {
         for (CarBooking booking : existingBookings) {
             if (booking == null) continue;
 
+            // Same car, active, and overlapping dates (endDate is the return day, so it is exclusive)
             if (booking.getStatus() == BookingStatus.ACTIVE
-                    && booking.getCar().getId().equals(carId)) {
+                    && booking.getCar().getId().equals(carId)
+                    && startDate.isBefore(booking.getEndDate())
+                    && booking.getStartDate().isBefore(endDate)) {
                 return null;
             }
         }
@@ -65,8 +68,9 @@ public class CarBookingService {
         return newBooking;
     }
 
-    public void CancelBooking(UUID id) {
-        carBookingDao.deleteBooking(id);
+    // Here it needs to be boolean, because it returns true or false
+    public boolean CancelBooking(UUID id) {
+        return carBookingDao.deleteBooking(id);
     }
 
     public CarBooking[] getBookings() {
@@ -93,7 +97,7 @@ public class CarBookingService {
         int count = 0;
 
         for (int i = 0; i < all.length; i++) {
-            if (all[i] != null && all[i].getUser().getId().equals(carId) ) {
+            if (all[i] != null && all[i].getCar().getId().equals(carId) ) {
                 result[count] = all[i];
                 count++;
             }

@@ -110,8 +110,14 @@ public class Main {
                     System.out.println("Enter booking ID to cancel");
                     String bookingIdText = scanner.nextLine();
                     UUID bookingId = UUID.fromString(bookingIdText);
+                    boolean cancelled =
                     carBookingService.CancelBooking(bookingId);
-                    System.out.println("Booking cancelled");
+
+                    if (cancelled) {
+                        System.out.println("Booking cancelled");
+                    } else {
+                        System.out.println("Booking not found");
+                    }
                     break;
                 case 6:
                     // List bookings by user

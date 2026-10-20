@@ -32,11 +32,12 @@ public class CarBookingDao {
     }
 
     // Delete a booking by id
-    public void deleteBooking(UUID id) {
+    public boolean deleteBooking(UUID id) {
         CarBooking booking = findBookingById(id);
-        if (booking != null) {
-            booking.setStatus(BookingStatus.CANCELLED);
+        if (booking == null) {
+            return false;
         }
+        booking.setStatus(BookingStatus.CANCELLED);
+        return true;
     }
-
 }
